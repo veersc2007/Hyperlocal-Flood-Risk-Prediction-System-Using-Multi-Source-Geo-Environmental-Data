@@ -2,64 +2,143 @@
 
 ## 📌 Project Overview
 
-This project develops a **machine learning-based hyperlocal flood risk prediction system** using multi-source geo-environmental data such as rainfall, temperature, elevation, river proximity, and other terrain and climate variables.
+This project presents a **machine learning-based hyperlocal flood risk prediction system** developed using multi-source geo-environmental datasets.
 
-The system predicts **flood risk at fine spatial resolution**, helping improve early warning systems, disaster preparedness, and infrastructure planning.
+The system integrates **satellite, terrain, soil, and hydrological data** to predict flood risk intensity on a **0–3 scale (low to high risk)** at a high spatial resolution over selected regions of Karnataka, India.
+
+The final output includes **flood susceptibility maps, statistical analysis, and geospatial visualizations** for decision-making and disaster risk assessment.
 
 ---
 
-## 🎯 Objectives
+## 🎯 Objective
 
-- Collect and integrate multi-source geospatial datasets (ERA5, DEM, hydrological data, etc.)
-- Preprocess and align spatial-temporal data for machine learning
-- Build predictive models for flood risk estimation
-- Generate **flood susceptibility maps**
-- Identify key environmental drivers using feature importance analysis
+- Integrate heterogeneous geospatial datasets from multiple global and local sources
+- Preprocess and align spatial data into a unified ML-ready format
+- Train a supervised machine learning model to classify flood risk (0–3 scale)
+- Generate predictive flood risk maps for unseen regions
+- Analyze environmental influence on flooding behavior
+
+---
+
+## 🗺️ Study Area
+
+- Two regions in Karnataka, India
+- One region used for training
+- One region used for testing (proxy validation area)
+
+---
+
+## 📊 Datasets Used
+
+The project integrates **five major data sources**:
+
+### 1. 🌍 NASA Earth Observation Data
+- Satellite-based environmental variables
+- Used for rainfall and atmospheric conditions
+
+**Source:** NASA Earthdata  
+https://earthdata.nasa.gov/
+
+---
+
+### 2. 🏔️ Digital Elevation Model (DEM)
+- Derived using QGIS / SRTM-based elevation data
+- Used for terrain and altitude influence on flooding
+
+**Source:** NASA SRTM / QGIS Processing Tools  
+https://www.usgs.gov/centers/eros/science/usgs-eros-archive-digital-elevation-shuttle-radar-topography-mission-srtm
+
+---
+
+### 3. 📉 Slope Dataset (Derived from DEM using QGIS)
+- Calculated terrain slope
+- Used to determine runoff behavior and water accumulation zones
+
+**Source Tool:** QGIS  
+https://qgis.org/
+
+---
+
+### 4. 🌱 Soil Properties Dataset
+- Soil composition features:
+  - Sand content
+  - Silt content
+  - Clay content
+- Used to estimate infiltration and water retention capacity
+
+**Source:** ISRIC SoilGrids  
+https://soilgrids.org/
+
+---
+
+### 5. 🌧️ Rainfall Dataset
+- Historical rainfall data
+- Preprocessed and split for training/testing regions
+
+**Source:** NASA / ERA5 / Meteorological datasets  
+https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5
 
 ---
 
 ## 🧠 Methodology
 
-### 1. Data Collection
-- ERA5 climate reanalysis dataset (rainfall, temperature, pressure, etc.)
-- Digital Elevation Model (DEM)
-- Hydrological features (river distance, slope, etc.)
+### 1. Data Preprocessing
+- Conversion of raster datasets into tabular CSV format
+- Handling missing values and inconsistencies
+- Spatial alignment using latitude-longitude grids
 
-### 2. Data Preprocessing
-- Handling missing values
-- Spatial alignment (latitude-longitude grid standardization)
-- Temporal aggregation (daily/monthly conversion)
-
-### 3. Feature Engineering
+### 2. Feature Engineering
+- Integration of:
+  - rainfall
+  - elevation
+  - slope
+  - soil properties
+  - hydrological proximity features
 - Normalization and scaling
-- Correlation analysis
-- Derived environmental indicators
 
-### 4. Model Development
-- Random Forest Regressor / Classifier
-- Train-validation-test split
-- Hyperparameter tuning
-
-### 5. Evaluation
-- MAE (Mean Absolute Error)
-- RMSE (Root Mean Square Error)
-- R² Score
-- Confusion Matrix (for classification models)
-
-### 6. Visualization
-- Flood risk heatmaps
-- Feature importance plots
-- Correlation heatmaps
+### 3. Dataset Preparation
+- Training dataset (Region 1 - Karnataka)
+- Testing dataset (Region 2 - Karnataka)
+- Target variable: **Flood Risk Score (0–3)**
 
 ---
 
-## 📊 Model Performance
+## 🤖 Machine Learning Model
 
-| Metric | Value |
-|--------|------|
-| MAE    | *Add value here* |
-| RMSE   | *Add value here* |
-| R²     | *Add value here* |
+- Model Used: Random Forest Regressor / Classifier
+- Input: Geo-environmental features
+- Output: Flood risk score (0–3 scale)
+
+### Training Process:
+- Train-test split on Region 1 data
+- Validation on Region 2 (proxy real-world testing)
+
+---
+
+## 📈 Model Evaluation
+
+- Confusion Matrix (classification performance)
+- Feature Importance Analysis
+
+---
+
+## 🗺️ Visual Outputs Generated
+
+- 🌊 Flood Risk Heatmaps (lat-long grid)
+- 📍 Flood Risk Map of Karnataka
+- 📊 Flood Score vs Elevation plots
+- 🌊 Flood Score vs River Distance plots
+- 📉 Correlation Heatmaps
+- 📊 Confusion Matrix visualization
+
+---
+
+## 🔍 Key Insights
+
+- Elevation and slope strongly influence flood susceptibility
+- Areas near river networks show higher flood risk
+- Soil composition significantly affects water retention behavior
+- Model successfully captures spatial flood risk variation
 
 ---
 
@@ -68,9 +147,9 @@ The system predicts **flood risk at fine spatial resolution**, helping improve e
 - Python 🐍
 - Pandas, NumPy
 - Scikit-learn 🤖
-- Xarray (for ERA5 processing)
+- Xarray (for geospatial datasets)
 - Matplotlib, Seaborn 📊
-- GeoPandas (optional GIS support)
+- QGIS (for spatial processing)
 
 ---
 
@@ -105,15 +184,14 @@ The system predicts **flood risk at fine spatial resolution**, helping improve e
   - flood_score_generation_train.py
   - NASA_POWER_DatatoCSV.py
 
-
 ---
 
-## 🌧️ Applications
+## 🚀 Future Work
 
-- Flood early warning systems
-- Urban infrastructure planning
-- Disaster risk assessment
-- Climate change impact studies
+- Integration of real-time rainfall API systems
+- Deep learning-based spatio-temporal models (LSTM/CNN)
+- Higher resolution satellite datasets
+- Web-based GIS dashboard for live flood monitoring
 
 ---
 
@@ -121,11 +199,22 @@ The system predicts **flood risk at fine spatial resolution**, helping improve e
 
 **Adityaveer Singh Chauhan**  
 Civil Engineering, IIT Roorkee  
+Focus: GIS, Machine Learning, Climate Risk Modeling
+
+---
+
+## 📚 Citation / Data Acknowledgements
+
+This project uses publicly available datasets from NASA, ECMWF, ISRIC SoilGrids, and QGIS-based geospatial processing tools.
+
+All datasets remain the property of their respective providers.
 
 ---
 
 ## ⭐ Acknowledgements
 
-- NASA POWER Datasets
-- Open-source GIS & ML libraries
+- NASA Earthdata Program
+- ECMWF ERA5 Reanalysis
+- ISRIC SoilGrids
+- QGIS Open Source GIS Community
 - Scikit-learn community
